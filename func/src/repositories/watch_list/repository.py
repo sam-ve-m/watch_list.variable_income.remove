@@ -1,11 +1,11 @@
-# Jormungandr
-from src.domain.watch_list.model import WatchListSymbolModel
-from src.infrastructures.mongo_db.infrastructure import MongoDBInfrastructure
+from typing import List
+
 from decouple import config
+from etria_logger import Gladsheim
 from nidavellir import Sindri
 
-# Third party
-from etria_logger import Gladsheim
+from src.domain.watch_list.model import WatchListSymbolModel
+from src.infrastructures.mongo_db.infrastructure import MongoDBInfrastructure
 
 
 class WatchListRepository:
@@ -20,29 +20,28 @@ class WatchListRepository:
             collection = database[config("MONGODB_WATCH_LIST_COLLECTION")]
             return collection
         except Exception as ex:
-            message = f'UserRepository::_get_collection::Error when trying to get collection'
+            message = (
+                f"UserRepository::_get_collection::Error when trying to get collection"
+            )
             Gladsheim.error(error=ex, message=message)
             raise ex
 
     @classmethod
-    async def remove_one_symbol_from_watch_list(cls, watch_list_symbol: WatchListSymbolModel):
+    async def remove_symbols_from_watch_list(cls, symbols: List[WatchListSymbolModel]):
+        client = cls.infra.get_client()
         collection = await cls.__get_collection()
-        try:
-            watch_list_symbol_dict = watch_list_symbol.to_dict()
-            Sindri.dict_to_primitive_types(watch_list_symbol_dict)
-            await collection.delete_one(watch_list_symbol_dict)
-        except Exception as ex:
-            message = f'UserRepository::insert_one_symbol_in_watch_list::with this query::"user":{watch_list_symbol_dict}'
-            Gladsheim.error(error=ex, message=message)
-            raise ex
 
-    @classmethod
-    async def exists(cls, watch_list_symbol: WatchListSymbolModel):
-        collection = await cls.__get_collection()
         try:
-            _id = watch_list_symbol.id
-            return bool(await collection.find_one({"_id": _id}))
+            async with await client.start_session() as session:
+                async with session.start_transaction():
+                    for symbol in symbols:
+                        symbol_filter = {"_id": symbol.get_id()}
+                        watch_list_symbol_dict = symbol.to_dict()
+                        Sindri.dict_to_primitive_types(watch_list_symbol_dict)
+
+                        await collection.delete_one(symbol_filter, session=session)
+
         except Exception as ex:
-            message = f'UserRepository::exists::with this query::"user":{watch_list_symbol.to_dict()}'
+            message = f"UserRepository::remove_symbols_from_watch_list"
             Gladsheim.error(error=ex, message=message)
             raise ex
