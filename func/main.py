@@ -37,7 +37,7 @@ async def remove_symbols(request: Request = request):
         return response
 
     except ValueError as ex:
-        message = "Invalid params"
+        message = "Invalid parameters"
         Gladsheim.error(error=ex, message=message)
         response = ResponseModel(
             success=False, code=InternalCode.INVALID_PARAMS, message=message

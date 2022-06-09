@@ -108,7 +108,7 @@ async def test_remove_symbols_when_json_is_invalid(
 
         assert (
             remove_symbols_result.data
-            == b'{"result": null, "message": "Invalid params", "success": false, "code": 10}'
+            == b'{"result": null, "message": "Invalid parameters", "success": false, "code": 10}'
         )
         assert not register_symbols_mock.called
         decode_payload_mock.assert_called_with(jwt="test")
