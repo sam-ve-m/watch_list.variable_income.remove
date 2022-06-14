@@ -19,7 +19,7 @@ class WatchListRepository:
             return collection
         except Exception as ex:
             message = (
-                f"UserRepository::_get_collection::Error when trying to get collection"
+                f"UserRepository::_get_collection::Error trying to get collection"
             )
             Gladsheim.error(error=ex, message=message)
             raise ex
@@ -28,6 +28,7 @@ class WatchListRepository:
     async def remove_symbol_from_watch_list(cls, symbol: WatchListSymbolModel):
         client = cls.infra.get_client()
         collection = await cls.__get_collection()
+        symbol_filter = None
 
         try:
             async with await client.start_session() as session:
@@ -40,5 +41,9 @@ class WatchListRepository:
 
         except Exception as ex:
             message = f"UserRepository::remove_symbol_from_watch_list"
-            Gladsheim.error(error=ex, message=message)
+            Gladsheim.error(
+                error=ex,
+                query=symbol_filter,
+                message=message
+            )
             raise ex
