@@ -51,5 +51,5 @@ spec:
           - name: HEIMDALL_REDIS_PASSWORD
             value: "jkl321pqr"
           - name: ASGI_FRAMEWORK
-          value: "HYPERCORN"
+            value: "HYPERCORN"
   version: 2
