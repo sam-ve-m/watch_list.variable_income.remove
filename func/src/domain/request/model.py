@@ -1,10 +1,6 @@
-# Jormungandr
 from src.domain.enums.region.enum import Region
 
-# Third party
 from pydantic import BaseModel, constr, validator
-
-from typing import List
 
 
 class WatchListSymbol(BaseModel):
@@ -15,7 +11,3 @@ class WatchListSymbol(BaseModel):
     def validate_symbols(cls, symbol):
         symbol = symbol.upper()
         return symbol
-
-
-class WatchListSymbols(BaseModel):
-    symbols: List[WatchListSymbol]

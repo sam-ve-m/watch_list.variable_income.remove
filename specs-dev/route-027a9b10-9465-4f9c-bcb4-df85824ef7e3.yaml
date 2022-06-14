@@ -18,6 +18,6 @@ spec:
     tls: ""
   method: ""
   methods:
-  - POST
+  - DELETE
   prefix: ""
   relativeurl: /watch_list/remove

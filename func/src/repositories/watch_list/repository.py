@@ -1,5 +1,3 @@
-from typing import List
-
 from decouple import config
 from etria_logger import Gladsheim
 from nidavellir import Sindri
@@ -27,21 +25,20 @@ class WatchListRepository:
             raise ex
 
     @classmethod
-    async def remove_symbols_from_watch_list(cls, symbols: List[WatchListSymbolModel]):
+    async def remove_symbol_from_watch_list(cls, symbol: WatchListSymbolModel):
         client = cls.infra.get_client()
         collection = await cls.__get_collection()
 
         try:
             async with await client.start_session() as session:
                 async with session.start_transaction():
-                    for symbol in symbols:
-                        symbol_filter = {"_id": symbol.get_id()}
-                        watch_list_symbol_dict = symbol.to_dict()
-                        Sindri.dict_to_primitive_types(watch_list_symbol_dict)
+                    symbol_filter = {"_id": symbol.get_id()}
+                    watch_list_symbol_dict = symbol.to_dict()
+                    Sindri.dict_to_primitive_types(watch_list_symbol_dict)
 
-                        await collection.delete_one(symbol_filter, session=session)
+                    await collection.delete_one(symbol_filter, session=session)
 
         except Exception as ex:
-            message = f"UserRepository::remove_symbols_from_watch_list"
+            message = f"UserRepository::remove_symbol_from_watch_list"
             Gladsheim.error(error=ex, message=message)
             raise ex

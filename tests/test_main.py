@@ -21,14 +21,13 @@ decoded_jwt_invalid = {
     "message": "Jwt decoded",
 }
 
-request_json_ok = {"symbols": [{"symbol": "PETR4", "region": "BR"}]}
-requests_with_json_invalid = [
-    {"smbols": [{"symbol": "PETR4", "region": "BR"}]},
-    {"smbols": [{"symbo": "PETR4", "region": "BR"}]},
-    {"smbols": [{"symbol": "PETR4", "reion": "BR"}]},
-    {"smbols": [{"symbol": "P", "region": "BR"}]},
-    {"smbols": [{"symbol": "PETR4", "region": "PR"}]},
-    {},
+request_ok = "?symbol=PETR4&region=BR"
+requests_with_invalid_parameters = [
+    "?smbol=PETR4&region=BR",
+    "?symbol=PETR4&regon=BR",
+    "?symbol=&region=BR",
+    "?symbol=PETR4&region=PR",
+    "",
 ]
 
 
@@ -43,7 +42,7 @@ async def test_remove_symbols_when_request_is_ok(
 
     app = Flask(__name__)
     with app.test_request_context(
-        json=request_json_ok,
+        request_ok,
         headers=Headers({"x-thebes-answer": "test"}),
     ).request as request:
 
@@ -72,7 +71,7 @@ async def test_remove_symbols_when_jwt_is_invalid(
 
     app = Flask(__name__)
     with app.test_request_context(
-        json=request_json_ok,
+        request_ok,
         headers=Headers({"x-thebes-answer": "test_error"}),
     ).request as request:
 
@@ -88,11 +87,11 @@ async def test_remove_symbols_when_jwt_is_invalid(
 
 
 @mark.asyncio
-@mark.parametrize("request_json", requests_with_json_invalid)
+@mark.parametrize("request_json", requests_with_invalid_parameters)
 @patch.object(Gladsheim, "error")
 @patch.object(WatchListService, "delete_symbols")
 @patch.object(Heimdall, "decode_payload")
-async def test_remove_symbols_when_json_is_invalid(
+async def test_remove_symbols_when_parameters_are_invalid(
     decode_payload_mock, register_symbols_mock, etria_mock, request_json
 ):
     decode_payload_mock.return_value = (decoded_jwt_ok, HeimdallStatusResponses.SUCCESS)
@@ -100,7 +99,7 @@ async def test_remove_symbols_when_json_is_invalid(
 
     app = Flask(__name__)
     with app.test_request_context(
-        json=request_json,
+        request_json,
         headers=Headers({"x-thebes-answer": "test"}),
     ).request as request:
 
@@ -127,7 +126,7 @@ async def test_remove_symbols_when_generic_exception_happens(
 
     app = Flask(__name__)
     with app.test_request_context(
-        json=request_json_ok,
+        request_ok,
         headers=Headers({"x-thebes-answer": "test"}),
     ).request as request:
 

@@ -5,27 +5,19 @@ from etria_logger import Gladsheim
 from nidavellir import Sindri
 from pytest import mark
 
-from src.domain.request.model import WatchListSymbols
+from src.domain.request.model import WatchListSymbol
 from src.domain.watch_list.model import WatchListSymbolModel
 from src.infrastructures.mongo_db.infrastructure import MongoDBInfrastructure
 from src.repositories.watch_list.repository import WatchListRepository
 
-dummy_symbols_to_insert = {
-    "symbols": [
-        {"symbol": "PETR4", "region": "BR"},
-        {"symbol": "AAPL", "region": "US"},
-        {"symbol": "JBSS3", "region": "BR"},
-    ]
-}
+dummy_symbol_to_insert = {"symbol": "PETR4", "region": "BR"}
 
-dummy_watch_list_symbols_model = [
-    WatchListSymbolModel(symbol, "test_id")
-    for symbol in WatchListSymbols(**dummy_symbols_to_insert).symbols
-]
-dummy_insert = [
-    str(Sindri.dict_to_primitive_types(x.to_dict()))
-    for x in dummy_watch_list_symbols_model
-]
+dummy_watch_list_symbol_model = WatchListSymbolModel(
+    WatchListSymbol(**dummy_symbol_to_insert), "test_id"
+)
+dummy_insert = str(
+    Sindri.dict_to_primitive_types(dummy_watch_list_symbol_model.to_dict())
+)
 
 
 @mark.asyncio
@@ -78,11 +70,11 @@ async def test_insert_all_symbols_in_watch_list(get_collection_mock, monkeypatch
 
     monkeypatch.setattr(MongoDBInfrastructure, "get_client", get_client_mock)
 
-    await WatchListRepository.remove_symbols_from_watch_list(
-        dummy_watch_list_symbols_model
+    await WatchListRepository.remove_symbol_from_watch_list(
+        dummy_watch_list_symbol_model
     )
     get_collection_mock.assert_called_once_with()
-    assert collection_mock.delete_one.call_count == len(dummy_watch_list_symbols_model)
+    assert collection_mock.delete_one.call_count == 1
 
 
 @mark.asyncio
@@ -132,8 +124,8 @@ async def test_insert_all_symbols_in_watch_list_exception(
     monkeypatch.setattr(MongoDBInfrastructure, "get_client", get_client_mock)
 
     with pytest.raises(Exception):
-        await WatchListRepository.remove_symbols_from_watch_list(
-            dummy_watch_list_symbols_model
+        await WatchListRepository.remove_symbol_from_watch_list(
+            dummy_watch_list_symbol_model
         )
 
         get_collection_mock.assert_called_once_with()

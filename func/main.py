@@ -7,13 +7,13 @@ from heimdall_client.bifrost import Heimdall
 
 from src.domain.enums.response.code import InternalCode
 from src.domain.exceptions.exceptions import UnauthorizedError
-from src.domain.request.model import WatchListSymbols
+from src.domain.request.model import WatchListSymbol
 from src.domain.response.model import ResponseModel
 from src.services.watch_list import WatchListService
 
 
 async def remove_symbols(request: Request = request):
-    raw_params = request.json
+    raw_params = request.args.to_dict()
     x_thebes_answer = request.headers.get("x-thebes-answer")
 
     try:
@@ -23,10 +23,10 @@ async def remove_symbols(request: Request = request):
         if heimdall_status != HeimdallStatusResponses.SUCCESS:
             raise UnauthorizedError()
 
-        watch_list_symbols = WatchListSymbols(**raw_params)
+        watch_list_symbol = WatchListSymbol(**raw_params)
         unique_id = jwt_content["decoded_jwt"]["user"]["unique_id"]
         result = await WatchListService.delete_symbols(
-            watch_list_symbols=watch_list_symbols, unique_id=unique_id
+            watch_list_symbol=watch_list_symbol, unique_id=unique_id
         )
 
         response = ResponseModel(
