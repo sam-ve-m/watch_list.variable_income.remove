@@ -1,0 +1,21 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: fn-watch-list-remove
+  namespace: fission
+spec:
+  hosts:
+    - hom.api.siga.me
+  gateways:
+    - homolog/hom-istio-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /router/watch_list/remove
+    rewrite:
+      uri: /watch_list/remove
+    route:
+    - destination:
+        host: router.fission.svc.cluster.local
+        port:
+          number: 80
