@@ -1,0 +1,55 @@
+include:
+- ./func/*
+kind: ArchiveUploadSpec
+name: func-Iivk
+
+---
+apiVersion: fission.io/v1
+kind: Package
+metadata:
+  creationTimestamp: null
+  name: watch-list-remove-fn-e7480f9b-1d4f-4ee0-aa66-a3bd830cb670
+  namespace: default
+spec:
+  deployment:
+    checksum: {}
+  environment:
+    name: watch-list-remove-env
+    namespace: default
+  source:
+    checksum: {}
+    type: url
+    url: archive://func-Iivk
+status:
+  buildstatus: pending
+  lastUpdateTimestamp: "2022-05-31T18:25:56Z"
+
+---
+apiVersion: fission.io/v1
+kind: Function
+metadata:
+  creationTimestamp: null
+  name: watch-list-remove-fn
+  namespace: default
+spec:
+  InvokeStrategy:
+    ExecutionStrategy:
+      ExecutorType: poolmgr
+      MaxScale: 0
+      MinScale: 0
+      SpecializationTimeout: 120
+      TargetCPUPercent: 0
+    StrategyType: execution
+  concurrency: 500
+  environment:
+    name: watch-list-remove-env
+    namespace: default
+  functionTimeout: 60
+  idletimeout: 120
+  package:
+    functionName: main.remove_symbols
+    packageref:
+      name: watch-list-remove-fn-e7480f9b-1d4f-4ee0-aa66-a3bd830cb670
+      namespace: default
+  requestsPerPod: 100000
+  resources: {}
