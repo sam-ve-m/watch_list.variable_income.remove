@@ -40,16 +40,8 @@ spec:
             value: "auth-gateway-keys-uat"
           - name: HEIMDALL_JWT_REQUIRED_FIELDS
             value: "[]"
-          - name: HEIMDALL_REDIS_HOST
-            value: "172.30.19.183"
-          - name: HEIMDALL_REDIS_PORT
-            value: "6379"
-          - name: HEIMDALL_REDIS_DB
-            value: "1"
-          - name: HEIMDALL_REDIS_USER
-            value: "heimdal"
-          - name: HEIMDALL_REDIS_PASSWORD
-            value: "FBJAnjkqw21yjewkDSA"
+          - name: HEIMDALL_REDIS_URL
+            value: "redis://jormungandr:Mdn45oodsanPOhbrewbDS@172.30.19.183:6379?db=1"
           - name: ASGI_FRAMEWORK
             value: "HYPERCORN"
   version: 2
