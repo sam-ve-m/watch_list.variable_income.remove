@@ -5,9 +5,9 @@ metadata:
   namespace: fission
 spec:
   hosts:
-    - hom.api.siga.me
+    - dev.api.siga.me
   gateways:
-    - homolog/hom-istio-gateway
+    - develop/dev-istio-gateway
   http:
   - match:
     - uri:
