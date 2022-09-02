@@ -23,7 +23,7 @@ spec:
           - name: ETRIA_LOG_LEVEL
             value: "WARNING"
           - name: MONGO_CONNECTION_URL
-            value: "mongodb://jormungandr:FltuklGHVSDAtldyatuidsafvg532@172.20.28.239:27017,172.20.28.238:27017,172.20.28.76:27017,172.30.18.149:27017/?authSource=admin&replicaSet=rslionx&readPreference=secondary"
+            value: "mongodb://jormungandr:MMhsdanNNds32Malmnwqyrte@172.30.18.223:41000,172.30.19.240:41000,172.30.19.71:41000/?authSource=admin&replicaSet=rslionx&readPreference=secondary&ssl=false"
           - name: MONGODB_DATABASE_NAME
             value: "lionx"
           - name: MONGODB_WATCH_LIST_COLLECTION
@@ -31,17 +31,17 @@ spec:
           - name: HEIMDALL_FILE_BUCKET_NAME
             value: "heimdall_rsa"
           - name: HEIMDALL_AWS_ACCESS_KEY_ID
-            value: "AKIATZVFXI252UPABZH7"
+            value: "AKIATZVFXI25USQWCS5O"
           - name: HEIMDALL_AWS_SECRET_ACCESS_KEY
-            value: "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"
+            value: "/5pswHkrCgWhMYrV7TM7oVm8VtulfzdYKE2rlS8f"
           - name: HEIMDALL_REGION_NAME
             value: "sa-east-1"
           - name: HEIMDALL_BUCKET_NAME_KEY
-            value: "auth-gateway-keys-prod"
+            value: "auth-gateway-keys-uat"
           - name: HEIMDALL_JWT_REQUIRED_FIELDS
             value: "[]"
           - name: HEIMDALL_REDIS_URL
-            value: "redis://jormungandr:IOfjnodas789r3hdsaJHDS@172.20.26.230:6380?db=1"
+            value: "redis://jormungandr:Mdn45oodsanPOhbrewbDS@172.30.19.183:6379?db=1"
           - name: ASGI_FRAMEWORK
             value: "HYPERCORN"
   version: 2
