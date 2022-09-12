@@ -10,7 +10,6 @@ spec:
     image: nexus.sigame.com.br/fission-builder-3.8:0.0.1
   imagepullsecret: "nexus-v3"
   keeparchive: false
-  poolsize: 3
   resources: {}
   runtime:
     image: nexus.sigame.com.br/fission-async:0.1.6
@@ -44,4 +43,4 @@ spec:
             value: "redis://jormungandr:oUjqwnmdDSA391dja@172.30.11.235:6379?db=1"
           - name: ASGI_FRAMEWORK
             value: "HYPERCORN"
-  version: 2
+  version: 3
