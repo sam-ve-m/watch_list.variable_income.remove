@@ -1,6 +1,6 @@
-from src.domain.request.model import WatchListSymbol
-from src.domain.watch_list.model import WatchListSymbolModel
-from src.repositories.watch_list.repository import WatchListRepository
+from func.src.domain.request.model import WatchListSymbol
+from func.src.domain.watch_list.model import WatchListSymbolModel
+from func.src.repositories.watch_list.repository import WatchListRepository
 
 
 class WatchListService:

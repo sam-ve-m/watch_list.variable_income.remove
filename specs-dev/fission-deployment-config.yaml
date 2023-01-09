@@ -4,4 +4,4 @@
 apiVersion: fission.io/v1
 kind: DeploymentConfig
 name: watch-list-remove
-uid: 91ac4647-376b-4984-aa26-9dbaf0fea98e
+uid: aab0db8b-b946-4165-a715-0e9c0fc299a3

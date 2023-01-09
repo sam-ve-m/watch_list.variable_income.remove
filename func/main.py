@@ -5,11 +5,11 @@ from flask import request, Request
 from heimdall_client import HeimdallStatusResponses
 from heimdall_client.bifrost import Heimdall
 
-from src.domain.enums.response.code import InternalCode
-from src.domain.exceptions.exceptions import UnauthorizedError
-from src.domain.request.model import WatchListSymbol
-from src.domain.response.model import ResponseModel
-from src.services.watch_list import WatchListService
+from func.src.domain.enums.response.code import InternalCode
+from func.src.domain.exceptions.exceptions import UnauthorizedError
+from func.src.domain.request.model import WatchListSymbol
+from func.src.domain.response.model import ResponseModel
+from func.src.services.watch_list import WatchListService
 
 
 async def remove_symbols(request: Request = request):
