@@ -5,10 +5,10 @@ from etria_logger import Gladsheim
 from nidavellir import Sindri
 from pytest import mark
 
-from src.domain.request.model import WatchListSymbol
-from src.domain.watch_list.model import WatchListSymbolModel
-from src.infrastructures.mongo_db.infrastructure import MongoDBInfrastructure
-from src.repositories.watch_list.repository import WatchListRepository
+from func.src.domain.request.model import WatchListSymbol
+from func.src.domain.watch_list.model import WatchListSymbolModel
+from func.src.infrastructures.mongo_db.infrastructure import MongoDBInfrastructure
+from func.src.repositories.watch_list.repository import WatchListRepository
 
 dummy_symbol_to_insert = {"symbol": "PETR4", "region": "BR"}
 

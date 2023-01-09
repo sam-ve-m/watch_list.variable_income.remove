@@ -1,4 +1,4 @@
-from src.domain.request.model import WatchListSymbol
+from func.src.domain.request.model import WatchListSymbol
 
 
 class WatchListSymbolModel:

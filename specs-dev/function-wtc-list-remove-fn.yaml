@@ -1,55 +1,61 @@
 include:
-- ./func/*
+- fission.py
 kind: ArchiveUploadSpec
-name: func-Iivk
+name: fission-py-gKIl
 
 ---
 apiVersion: fission.io/v1
 kind: Package
 metadata:
   creationTimestamp: null
-  name: watch-list-remove-fn-e7480f9b-1d4f-4ee0-aa66-a3bd830cb670
+  name: wtc-list-remove-fn-afe8b51c-193d-4caf-b3b4-4fcf6d54e831
   namespace: default
 spec:
   deployment:
     checksum: {}
+    type: url
+    url: archive://fission-py-gKIl
   environment:
-    name: watch-list-remove-env
+    name: wtc-list-remove-env
     namespace: default
   source:
     checksum: {}
-    type: url
-    url: archive://func-Iivk
 status:
-  buildstatus: pending
-  lastUpdateTimestamp: "2022-05-31T18:25:56Z"
+  buildstatus: none
+  lastUpdateTimestamp: "2023-01-09T18:46:16Z"
 
 ---
 apiVersion: fission.io/v1
 kind: Function
 metadata:
   creationTimestamp: null
-  name: watch-list-remove-fn
+  name: wtc-list-remove-fn
   namespace: default
 spec:
   InvokeStrategy:
     ExecutionStrategy:
       ExecutorType: newdeploy
-      MaxScale: 6
+      MaxScale: 3
       MinScale: 1
       SpecializationTimeout: 120
-      TargetCPUPercent: 80
+      TargetCPUPercent: 0
+      hpaMetrics:
+      - resource:
+          name: cpu
+          target:
+            averageUtilization: 80
+            type: Utilization
+        type: Resource
     StrategyType: execution
   concurrency: 500
   environment:
-    name: watch-list-remove-env
+    name: wtc-list-remove-env
     namespace: default
   functionTimeout: 60
   idletimeout: 120
   package:
-    functionName: main.remove_symbols
     packageref:
-      name: watch-list-remove-fn-e7480f9b-1d4f-4ee0-aa66-a3bd830cb670
+      name: wtc-list-remove-fn-afe8b51c-193d-4caf-b3b4-4fcf6d54e831
       namespace: default
-  requestsPerPod: 100000
+  requestsPerPod: 10000
   resources: {}

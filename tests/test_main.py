@@ -7,8 +7,8 @@ from heimdall_client.bifrost import HeimdallStatusResponses
 from pytest import mark
 from werkzeug.test import Headers
 
-from main import remove_symbols
-from src.services.watch_list import WatchListService
+from func.main import remove_symbols
+from func.src.services.watch_list import WatchListService
 
 decoded_jwt_ok = {
     "is_payload_decoded": True,
