@@ -15,10 +15,6 @@ dummy_symbol_to_insert = {"symbol": "PETR4", "region": "BR"}
 dummy_watch_list_symbol_model = WatchListSymbolModel(
     WatchListSymbol(**dummy_symbol_to_insert), "test_id"
 )
-dummy_insert = str(
-    Sindri.dict_to_primitive_types(dummy_watch_list_symbol_model.to_dict())
-)
-
 
 @mark.asyncio
 @patch.object(WatchListRepository, "_WatchListRepository__get_collection")

@@ -33,9 +33,6 @@ class WatchListRepository:
         try:
             async with await client.start_session() as session:
                 async with session.start_transaction():
-                    watch_list_symbol_dict = symbol.to_dict()
-                    Sindri.dict_to_primitive_types(watch_list_symbol_dict)
-
                     await collection.delete_one(symbol_filter, session=session)
 
         except Exception as ex:
