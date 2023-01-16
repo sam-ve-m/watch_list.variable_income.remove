@@ -28,15 +28,11 @@ class WatchListRepository:
     async def remove_symbol_from_watch_list(cls, symbol: WatchListSymbolModel):
         client = cls.infra.get_client()
         collection = await cls.__get_collection()
-        symbol_filter = None
+        symbol_filter = {"_id": symbol.get_id()}
 
         try:
             async with await client.start_session() as session:
                 async with session.start_transaction():
-                    symbol_filter = {"_id": symbol.get_id()}
-                    watch_list_symbol_dict = symbol.to_dict()
-                    Sindri.dict_to_primitive_types(watch_list_symbol_dict)
-
                     await collection.delete_one(symbol_filter, session=session)
 
         except Exception as ex:

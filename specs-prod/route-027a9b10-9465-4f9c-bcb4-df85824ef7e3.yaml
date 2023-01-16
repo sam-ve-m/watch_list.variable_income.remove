@@ -14,10 +14,10 @@ spec:
   ingressconfig:
     annotations: null
     host: '*'
-    path: /watch_list/remove
+    path: /watch_list/variable_income/remove
     tls: ""
   method: ""
   methods:
   - DELETE
   prefix: ""
-  relativeurl: /watch_list/remove
+  relativeurl: /watch_list/variable_income/remove

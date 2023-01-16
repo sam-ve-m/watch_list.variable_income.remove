@@ -16,7 +16,7 @@ spec:
     container:
       name: ""
       resources: {}
-    image: nexus.sigame.com.br/fission-wacth-list-remove:0.1.0-1
+    image: nexus.sigame.com.br/fission-wacth-list-remove:0.2.0-0
     podspec:
       containers:
         - name: wtc-list-remove-env
