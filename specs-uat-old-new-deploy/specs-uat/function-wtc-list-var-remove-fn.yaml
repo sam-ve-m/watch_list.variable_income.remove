@@ -1,0 +1,57 @@
+include:
+- fission.py
+kind: ArchiveUploadSpec
+name: fission-py-du7L
+
+---
+apiVersion: fission.io/v1
+kind: Package
+metadata:
+  creationTimestamp: null
+  name: wtc-list-var-remove-fn-70b5b0c4-2d3f-44f4-a105-251f64d8a6be
+  namespace: default
+spec:
+  deployment:
+    checksum: {}
+    type: url
+    url: archive://fission-py-du7L
+  environment:
+    name: wtc-list-var-remove-env
+    namespace: default
+  source:
+    checksum: {}
+status:
+  buildstatus: none
+  lastUpdateTimestamp: "2023-01-16T12:06:01Z"
+
+---
+apiVersion: fission.io/v1
+kind: Function
+metadata:
+  creationTimestamp: null
+  name: wtc-list-var-remove-fn
+  namespace: default
+spec:
+  InvokeStrategy:
+    ExecutionStrategy:
+      ExecutorType: poolmgr
+      SpecializationTimeout: 120
+    StrategyType: execution
+  concurrency: 500
+  environment:
+    name: wtc-list-var-remove-env
+    namespace: default
+  functionTimeout: 60
+  idletimeout: 120
+  package:
+    packageref:
+      name: wtc-list-var-remove-fn-70b5b0c4-2d3f-44f4-a105-251f64d8a6be
+      namespace: default
+  requestsPerPod: 10000
+  resources:
+    requests:
+      cpu: 128m
+      memory: 128Mi
+    limits:
+      cpu: 256m
+      memory: 256Mi
