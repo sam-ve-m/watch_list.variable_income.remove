@@ -47,6 +47,5 @@ spec:
             value: "redis://jormungandr:Mdn45oodsanPOhbrewbDS@172.30.19.183:6379?db=1"
           - name: ASGI_FRAMEWORK
             value: "HYPERCORN"
-  version: 2
-terminationGracePeriod: 3
+  terminationGracePeriod: 3
   version: 3
